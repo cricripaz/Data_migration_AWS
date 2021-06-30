@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: '2021-06-06'
+Transform:
+- AWS::Serverless-2016-10-31
+Description: Csv To Dynamo
+Resource:
+  LambdaCsvToDynamo:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: csv_to_dynamodb.handler
+      Runtime: python3.6
+      CodeUri: src/
