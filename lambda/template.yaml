@@ -5,37 +5,15 @@ Transform:
 
 Description: CsvToDynamo
 Resources:
-    MyLambdaRole:
-        Type: AWS::IAM::Role
-        Properties:
-            RoleName: csv-to-dynamodb
-            AssumeRolePolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-              - Effect: Allow
-                Principal:
-                  Service:
-                  - lambda.amazonaws.com
-                Action:
-                - sts:AssumeRole
-            Path: "/"
-            Policies:
-            - PolicyName: my-lambda-policy
-              PolicyDocument:
-                Version: '2012-10-17'
-                Statement:
-                - Effect: Allow
-                  Action:
-                  - logs:CreateLogGroup
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                  Resources: arn:aws:logs:*:*:*
-    
     LambdaCsvToDynamo:
         Type: AWS::Serverless::Function
         Properties:
-          FunctionName: csvtodynamodb
           Handler: csv_to_dynamodb.handler
           Runtime: python3.6
           CodeUri: package/
-          Role: !GetAtt MyLambdaRole.Arn
+          Timeout: 10
+          Policies:
+           - DynamoDBCrudPolicy:
+              TableName: pets
+           - S3CrudPolicy:
+              BucketName: csv-dynamodb-lambda

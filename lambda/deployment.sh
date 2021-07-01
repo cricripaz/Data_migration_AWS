@@ -30,5 +30,5 @@ fi
 
 if [[ $DEPLOY == 1 ]]
 then
-    aws cloudformation deploy --template-file packaged-template.json --stack-name csv-to-dynamodb-stack --capabilities CAPABILITY_NAMED_IAM
+    aws cloudformation deploy --template-file packaged-template.json --stack-name csv-to-dynamodb-stack-uno --capabilities CAPABILITY_NAMED_IAM
 fi
