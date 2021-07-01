@@ -3,7 +3,7 @@ import csv
 import boto3
 
 
-def lambda_handler(event, context):
+def handler(event, context):
     
     region ='us-east-1'
     record_list = []

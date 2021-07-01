@@ -1,4 +1,2 @@
-awscli
-urllib3
-requests
 boto3
+python-csv

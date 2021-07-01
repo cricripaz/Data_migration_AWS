@@ -1,14 +1,41 @@
-AWSTemplateFormatVersion: '2021-06-06'
+AWSTemplateFormatVersion: "2010-09-09"
 
 Transform:
  - AWS::Serverless-2016-10-31
 
-Description: Csv To Dynamo
-
-Resource:
+Description: CsvToDynamo
+Resources:
+    MyLambdaRole:
+        Type: AWS::IAM::Role
+        Properties:
+            RoleName: csv-to-dynamodb
+            AssumeRolePolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+              - Effect: Allow
+                Principal:
+                  Service:
+                  - lambda.amazonaws.com
+                Action:
+                - sts:AssumeRole
+            Path: "/"
+            Policies:
+            - PolicyName: my-lambda-policy
+              PolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                - Effect: Allow
+                  Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  Resources: arn:aws:logs:*:*:*
+    
     LambdaCsvToDynamo:
         Type: AWS::Serverless::Function
         Properties:
+          FunctionName: csvtodynamodb
           Handler: csv_to_dynamodb.handler
           Runtime: python3.6
-          CodeUri: src/
+          CodeUri: package/
+          Role: !GetAtt MyLambdaRole.Arn
