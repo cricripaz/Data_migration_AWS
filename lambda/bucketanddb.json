@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform:
+- AWS::Serverless-2016-10-31
+Description: Create DynamoDB
+Resources:
+  BucketDeployment:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: prueba-deploy
+  BucketCsv:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: prueba-csvtodynamo
+  MyTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: husky-app-adoption-DB
+      PrimaryKey:
+        Name: account_id
+        Type: Number
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5

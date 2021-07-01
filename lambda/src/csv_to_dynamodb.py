@@ -39,6 +39,7 @@ def handler(event, context):
             img_2 = row[5]
             img_3 = row[6]
             img_4 = row[7]
+            name = row[8]
             #Creando directorio por Animal
             
             directory_name = row[0]+'_'+'animal'
@@ -49,7 +50,7 @@ def handler(event, context):
            
            
             add_to_db = dynamodb.put_item(
-                TableName = 'pets' ,
+                TableName = 'husky-app-adoption-DB' ,
                 Item = {
                     'animal_id' : {'N': str(animal_id)},
                     'health_status' : {'S': str(health_status)},
@@ -58,7 +59,8 @@ def handler(event, context):
                     'IMG_1' : {'S' : str(img_1)},
                     'IMG_2' : {'S' : str(img_2)},
                     'IMG_3' : {'S' : str(img_3)},
-                    'IMG_4' : {'S' : str(img_4)}
+                    'IMG_4' : {'S' : str(img_4)},
+                    'name' : {'S': str(name)}
                     
                 }
                 )
